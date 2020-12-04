@@ -7,7 +7,9 @@ const { jsonToMap } = require('../utils');
 const router = Router();
 
 router.get('/', async (req, res) => {
-  res.send('WIP');
+  const listOfEnvs = await EnvModel.find().lean();
+  const listOfEnvProjNames = listOfEnvs.map((env) => env.projectName);
+  res.status(200).send({ availableProjectNames: listOfEnvProjNames });
 });
 
 router.get('/:projectName', async (req, res) => {
