@@ -2,9 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const CONSTANTS = require('./constants');
-const PORT = CONSTANTS.PORT || 4000;
+const connectToMongo = require('./config/db');
 
+const PORT = CONSTANTS.PORT || 4000;
 const app = express();
+connectToMongo();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
