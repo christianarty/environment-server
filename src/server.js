@@ -7,17 +7,20 @@ const connectToMongo = require('./config/db');
 const PORT = CONSTANTS.PORT || 4000;
 const app = express();
 connectToMongo();
+// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-app.use(express.static('public'));
+
+// Routes
 
 app.get('/', (req, res) => {
   res.send('Welcome to Environment-Server!');
 });
 app.use('/env', require('./env/env.routes'));
 
+// App start
 app.listen(PORT, () =>
   console.log(`Environment Server listening on port ${PORT}`),
 );
